@@ -85,8 +85,7 @@ This function can be found in [`./app/lib/actions.ts`](./app/lib/actions.ts).
 
 ## Completing the quest
   1. Read through the [Developer Cheat Sheet](#developer-cheat-sheet) above to understand the app and the supporting dependencies. Look back to that section for reference as you complete the quest.
-  2. Visit and try out the demo app [here](https://network.overmind.xyz/). Feel free to use this demo as a reference as you complete the quest.
-  3. Deploy and open the app locally as described [above](#deploying-the-app-locally). 
-  4. Complete the quests by following the TODO comments in the following files (recommended order): 
+  2. Deploy and open the app locally as described [above](#deploying-the-app-locally). 
+  3. Complete the quests by following the TODO comments in the following files (recommended order): 
        - [`app/app/layout.tsx`](./app/app/layout.tsx)
        - [`app/app/loginWindow.tsx`](./app/app/loginWindow.tsx)
