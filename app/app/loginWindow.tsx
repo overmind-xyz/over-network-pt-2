@@ -11,6 +11,7 @@ export default function LoginWindow(
   /* 
     TODO #1: Add a state variable to store the current error message
   */
+  const [error, setError] = useState<string>("")
 
   /*
     This function is called to set up the profile of the new user. It is called
@@ -22,6 +23,7 @@ export default function LoginWindow(
     /* 
       TODO #3: Set the error state to an empty string
     */
+   setError("")
 
     /* 
       TODO #4: Set up a try catch block to call the setUpProfile() function and set the error state
@@ -31,6 +33,12 @@ export default function LoginWindow(
         - Use the setUpProfile() function to set up the user's profile and log them in
         - In the catch block, set the error state to the error message (error.message)
     */
+        try {
+         setUpProfile
+         
+        } catch (error: any) {
+         setError(error.message)
+        }
   }
 
   return (
@@ -65,7 +73,9 @@ export default function LoginWindow(
           <p className="text-red-500">
             {/* 
               TODO #2: Display the error message if it is not an empty string using the error state variable
-            */}
+            */
+            error && <p>{error}</p>
+            }
             {
               "PLACEHOLDER"
             }
