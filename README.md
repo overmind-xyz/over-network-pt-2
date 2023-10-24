@@ -39,8 +39,8 @@ This type is used to represent a user. In this quest, the important attributes a
 
 ```typescript
 export type User = {
-  username: string; // the user's username
-  name: string; // the user's name
+  username:nihonggo
+  name:nihong
   imgSrc?: string;
   followers: number;
   following: number;
