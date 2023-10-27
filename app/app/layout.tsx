@@ -9,6 +9,8 @@ import { newUserSchema } from '@/lib/zod';
 import { dropUser, getNumberOfUsers, storeUser } from '@/lib/storage';
 import { createProfile, newPrivateKey } from '@/lib/contract';
 import LoginWindow from './loginWindow';
+import { User } from '@/lib/types';
+
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -47,42 +49,20 @@ export default async function RootLayout({
 }) {
   const me = await getMe();
 
-  /*
-    This function is called to set up the profile of a new user. It is called
-    when a user submits the login form. It takes a FormData object as an argument,
-    which contains the username and name of the new user.
-    @param form - FormData object containing the username and name of the new user
-  */
+ 
   const setUpProfile = async (form: FormData) => {
-    /*
-      TODO #1: Indicate that this function is a server function by adding 'use server';
-    */
-
-    /*
-      TODO #2: Create the new User object with a username, name, and privateKey
-    
-      HINT: 
-        - 
-        - Use the newPrivateKey() function to generate a new private key for the user
-    */
-
-    /* 
-      TODO #3: Store the user in the local account cache
-
-      HINT: Use the storeUser() function to store the user
-    */
-
-    /* 
-      TODO #4: Set up a try catch block to create the user's profile and log them in if successful.
-
-      HINT: 
-        - Use the createProfile() and login() functions to create the user's 
-          profile and log them in
-        
-        - In the catch block, use the dropUser() function to remove the user 
-          from the local account cache. Then, throw the error to be caught by the catch block in
-          the loginWindow.tsx file.
-    */
+  
+      'use server'
+        var name = document.getElementById("name");
+        var username = document.getElementById("username")
+        const user:User = {name: name!.innerText, username: username!.innerText, privateKey: newPrivateKey(), followers: 0, following: 0}
+      storeUser(user)
+          try {
+            createProfile(user)
+            login(user)
+          } catch (error) {
+            dropUser(user) 
+          }
   }
 
   if (!me) {
