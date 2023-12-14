@@ -57,6 +57,10 @@ export default async function RootLayout({
     /*
       TODO #1: Indicate that this function is a server function by adding 'use server';
     */
+  const createNewUserProfile = async (
+    username: string, 
+    name: string): Promise<void> => {
+  }
 
     /*
       TODO #2: Create the new User object with a username, name, and privateKey
@@ -65,13 +69,26 @@ export default async function RootLayout({
         - 
         - Use the newPrivateKey() function to generate a new private key for the user
     */
-
+  interface User {
+      username: string;
+      name: string;
+      privateKey: string;
+    }
+  
+    const createNewUser = async (formData: FormData): Promise<User> => {
+      const username = formData.get('username') as string;
+      const name = formData.get('name') as string;
+      const privateKey = await newPrivateKey(); 
+      return { username, name, privateKey };
+    }
     /* 
       TODO #3: Store the user in the local account cache
 
       HINT: Use the storeUser() function to store the user
     */
-
+    const storeUserInLocalCache = async (user: User): Promise<void> => {
+       await storeUser(user); // 
+     }
     /* 
       TODO #4: Set up a try catch block to create the user's profile and log them in if successful.
 
@@ -83,7 +100,18 @@ export default async function RootLayout({
           from the local account cache. Then, throw the error to be caught by the catch block in
           the loginWindow.tsx file.
     */
-  }
+    const setUpProfile = async (formData: FormData): Promise<void> => {
+      try {
+        const newUser = await createNewUser(formData);
+        await storeUserInLocalCache(newUser);
+        await createProfile(newUser); 
+        await login(newUser); 
+      } catch (error) {
+        const username = formData.get('username') as string;
+        await dropUser(username); 
+        throw error;
+      }
+    }
 
   if (!me) {
     return (
